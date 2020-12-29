@@ -12,4 +12,6 @@ dist
 
 .history
 .firebaserc
-
+.firebase
+firebase-debug.log
+.github
