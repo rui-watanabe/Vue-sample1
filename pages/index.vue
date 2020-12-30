@@ -1,6 +1,8 @@
 <template>
  <div class="page">
+   <p v-if="indicateUser.login">{{ indicateUser }}</p>
    <form
+     v-else
      class="form"
      @submit.prevent
    >
@@ -45,7 +47,12 @@ export default {
      password: ''
    }
  },
- methods : {
+ computed: {
+   indicateUser() {
+     return this.$store.getters['getUser'];
+   }
+ },
+ methods: {
   login() {
     this.$store.dispatch('loginAction', {
       email: this.email,
