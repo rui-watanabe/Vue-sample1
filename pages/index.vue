@@ -1,65 +1,63 @@
 <template>
-  <section class="container">
-    <div>
-      <app-logo/>
-      <h1 class="title">
-        nuxt-firebase-sample
-      </h1>
-      <h2 class="subtitle">
-        Nuxt.js project
-      </h2>
-      <div class="links">
-        <a
-          href="https://nuxtjs.org/"
-          target="_blank"
-          class="button--green">Documentation</a>
-        <a
-          href="https://github.com/nuxt/nuxt.js"
-          target="_blank"
-          class="button--grey">GitHub</a>
-      </div>
-    </div>
-  </section>
+ <div class="page">
+   <form
+     class="form"
+     @submit.prevent
+   >
+     <label class="label">
+       <span class="label">
+         email
+       </span>
+       <input
+         class="input"
+         type="text"
+         v-model="email"
+       >
+     </label>
+     <label class="label">
+       <span class="label">
+         password
+       </span>
+       <input
+         class="input"
+         type="password"
+         v-model="password"
+       >
+     </label>
+     <button
+       class="button"
+       type="submit"
+       @click="login"
+     >
+       Login
+     </button>
+   </form>
+ </div>
 </template>
 
 <script>
-import AppLogo from '~/components/AppLogo.vue'
+import firebase from '../plugins/firebase'
 
 export default {
-  components: {
-    AppLogo
-  }
+ data() {
+   return {
+     email: '',
+     password: ''
+   }
+ },
+ methods : {
+   login() {
+     firebase.auth().signInWithEmailAndPassword(this.email, this.password)
+     .then(user => {
+       // eslintがある場合は
+       // 引数にuser追加とeslint-disable-lineの記載
+       console.log('成功！')// eslint-disable-line
+     }).catch((error) => {
+       alert(error)
+     });
+   },
+ }
 }
 </script>
 
-<style>
-.container {
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
-
-.title {
-  font-family: "Quicksand", "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; /* 1 */
-  display: block;
-  font-weight: 300;
-  font-size: 100px;
-  color: #35495e;
-  letter-spacing: 1px;
-}
-
-.subtitle {
-  font-weight: 300;
-  font-size: 42px;
-  color: #526488;
-  word-spacing: 5px;
-  padding-bottom: 15px;
-}
-
-.links {
-  padding-top: 15px;
-}
-</style>
 

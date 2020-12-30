@@ -1,16 +1,15 @@
-import firebase from "firebase/app"
+import firebase from "firebase"
 
 if (!firebase.apps.length) {
-firebase.initializeApp({
- apiKey: "貼り付け",
- authDomain: "貼り付け",
- databaseURL: "貼り付け",
- projectId: "貼り付け",
- storageBucket: "貼り付け",
- messagingSenderId: "貼り付け",
- appId: "貼り付け",
- measurementId: "貼り付け"
-})
+  firebase.initializeApp({
+    apiKey: process.env.API_KEY,
+    authDomain: process.env.AUTH_DOMAIN,
+    projectId: process.env.PROJECT_ID,
+    storageBucket: process.env.STORAGE_BUCKET,
+    messagingSenderId: process.env.MESSAGING_SENDER_ID,
+    appId: process.env.APP_ID,
+    measurementId: process.env.MEASUREMENT_ID
+  })
 }
 
 export default firebase
