@@ -38,7 +38,6 @@
 </template>
 
 <script>
-import firebase from '../plugins/firebase'
 
 export default {
  data() {
@@ -58,6 +57,9 @@ export default {
       email: this.email,
       password: this.password
     })
+    if(this.$store.getters['getUser']) {
+       this.$router.push('/home')
+     }
    },
  }
 }

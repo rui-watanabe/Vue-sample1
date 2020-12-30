@@ -6,7 +6,6 @@ export const state = () => ({
     email: '',
     login: false
   }
-
 })
 
 export const getters = {
@@ -14,19 +13,22 @@ export const getters = {
 }
 
 export const actions = {
-  loginAction({ commit }, payload) {
-    firebase.auth().signInWithEmailAndPassword(payload.email, payload.password)
+  loginAction({ dispatch }, { email, password }) {
+    firebase.auth().signInWithEmailAndPassword(email, password)
       .then(user => {
         console.log('成功')
-        firebase.auth().onAuthStateChanged(function (user) {
-          if (user) {
-            commit('setData', { uid: user.uid, email: user.email })
-            commit('setLogin')
-          }
-        })
+        dispatch('setLoginAction')
       }).catch((error) => {
         alert(error)
       })
+  },
+  setLoginAction({ commit }) {
+    firebase.auth().onAuthStateChanged(function (user) {
+      if (user) {
+        commit('setData', { uid: user.uid, email: user.email })
+        commit('setLogin')
+      }
+    })
   }
 }
 
