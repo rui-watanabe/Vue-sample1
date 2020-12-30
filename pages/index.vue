@@ -46,15 +46,11 @@ export default {
    }
  },
  methods : {
-   login() {
-     firebase.auth().signInWithEmailAndPassword(this.email, this.password)
-     .then(user => {
-       // eslintがある場合は
-       // 引数にuser追加とeslint-disable-lineの記載
-       console.log('成功！')// eslint-disable-line
-     }).catch((error) => {
-       alert(error)
-     });
+  login() {
+    this.$store.dispatch('loginAction', {
+      email: this.email,
+      password: this.password
+    })
    },
  }
 }
