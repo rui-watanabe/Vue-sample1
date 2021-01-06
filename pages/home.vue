@@ -6,13 +6,30 @@
      ログインに成功！
    </p>
    {{ indicateUser }}
+    <label>
+     <span>
+      患者名:
+     </span>
+     <input
+       type="text"
+       v-model="patient.name"
+     >
+   </label>
+   <label>
+     <span>
+       email:
+     </span>
+     <input
+       type="text"
+       v-model="patient.email"
+     >
+   </label>
    <button
      type="button"
-     @click="fetchData"
+     @click="submit"
    >
-     fetchData
+     Submit
    </button>
-   <div id="patient" />
  </div>
 </template>
 
@@ -23,7 +40,8 @@ export default {
   data () {
    return {
      patient: {
-       name: ""
+       name: "",
+       email: ""
      },
    }
  },
@@ -33,11 +51,17 @@ export default {
     }
   },
   methods: {
-    fetchData () {
-     let Ref = firebase.database().ref('/')
-     Ref.on('value', function(snapshot){
-       document.getElementById("patient").innerHTML = snapshot.child("name").val()
-     })
+     submit () {
+     const db = firebase.firestore()
+     let dbPatients = db.collection('patients')
+     dbPatients
+       .add({
+         name: this.patient.name,
+         email: this.patient.email,
+       })
+       .then(ref => {
+         console.log('Add ID: ', ref.id)
+       })
    },
   }
 }
