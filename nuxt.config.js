@@ -38,6 +38,7 @@ module.exports = {
   },
   modules: [
     '@nuxtjs/dotenv',
+    '@nuxtjs/vuetify'
   ],
 }
 
